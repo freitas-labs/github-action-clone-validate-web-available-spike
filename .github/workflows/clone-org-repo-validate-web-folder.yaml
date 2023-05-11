@@ -11,12 +11,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: ${{ env.REPO }}
+          repository: ${{ vars.REPO }}
 
       - name: Check if 'web' folder exists
         run: |
-          echo ${{ env.REPO }}
-          echo ${{ github.REPO }}
+          echo ${{ vars.REPO }}
+          echo ${{ vars.REPO }}
 
           if [ -d ${{ github.workspace }}/web ]; then
             echo "'web' folder exists."
