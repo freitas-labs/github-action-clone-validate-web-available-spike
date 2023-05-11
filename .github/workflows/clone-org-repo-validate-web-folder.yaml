@@ -16,10 +16,9 @@ jobs:
       - name: Check if 'web' folder exists
         run: |
           echo ${{ env.REPO }}
-          echo context.repo.owner
-          echo context.repo.repo
+          echo ${{ github.REPO }}
 
-          if [ -d "web" ]; then
+          if [ -d ${{ github.workspace }}/web ]; then
             echo "'web' folder exists."
           else
             echo "'web' folder does not exist."
