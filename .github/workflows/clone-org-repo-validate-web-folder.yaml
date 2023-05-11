@@ -17,14 +17,14 @@ jobs:
         run: |
           echo ${{ vars.REPO }}
 
-          if  [ -f ${{ github.workspace }}/pubspec.yaml && -d ${{ github.workspace }}/web ]; then
+          if  [ -f ${{ github.workspace }}/pubspec.yaml] && [ -d ${{ github.workspace }}/web ]; then
             echo "'web' folder exists in root."
             exit 0
           else
             echo "'web' folder does not exist in root."
           fi
 
-      - name: Check if 'web' folder exists in root
+      - name: Check if 'web' folder exists
         run: |
           echo ${{ vars.REPO }}
 
