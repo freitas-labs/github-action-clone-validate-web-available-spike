@@ -1,0 +1,25 @@
+name: Fork Repository
+on:
+  push:
+    branches:
+      - main
+jobs:
+  fork:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone or Checkout repository
+        uses: actions/checkout@v2
+        with:
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: freitas-labs/svelte-spa-sveltekit-ts-css-spike
+
+      - name: Check if 'web' folder exists
+        run: |
+          if [ -d "web" ]; then
+            echo "'web' folder exists."
+          else
+            echo "'web' folder does not exist."
+            exit 1
+          fi
+          
