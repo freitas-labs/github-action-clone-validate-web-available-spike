@@ -13,14 +13,28 @@ jobs:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: ${{ vars.REPO }}
 
-      - name: Check if 'web' folder exists
+      - name: Check if 'web' folder exists in root
         run: |
           echo ${{ vars.REPO }}
+
+          if  [ -f ${{ github.workspace }}/pubspec.yaml && -d ${{ github.workspace }}/web ]; then
+            echo "'web' folder exists in root."
+            exit 0
+          else
+            echo "'web' folder does not exist in root."
+          fi
+
+      - name: Check if 'web' folder exists in root
+        run: |
           echo ${{ vars.REPO }}
 
-          if [ -d ${{ github.workspace }}/web ]; then
-            echo "'web' folder exists."
+          # Find the directory containing the file 'pubspec.yaml'
+          PUBSPEC_DIR=$(find /${{ github.workspace }} -name "pubspec.yaml" -exec dirname {} \;)
+
+          # Check if 'web' folder exists in the same directory as 'pubspec.yaml'
+          if [ -d "$PUBSPEC_DIR/web" ]; then
+            echo "'web' folder exists in the same directory as 'pubspec.yaml'."
           else
-            echo "'web' folder does not exist."
+            echo "'web' folder does not exist in the same directory as 'pubspec.yaml'."
             exit 1
           fi
